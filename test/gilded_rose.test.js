@@ -30,7 +30,9 @@ describe("Gilded Rose", () => {
   });
 
   it("should decrement boring items' quality by 2 when sellIn is less than 1", () => {
-    const gildedRose = new Shop([new Item("Something Old", 0, 10)]);
+    const gildedRose = new Shop([
+      new Item("Something Old", 0, 10)
+    ]);
     const items = gildedRose.updateQuality();
     expect(items[0].sellIn).toBe(-1);
     expect(items[0].quality).toBe(8);
@@ -38,7 +40,7 @@ describe("Gilded Rose", () => {
 
   it("should not decrement a boring item's quality beyond 0", () => {
     const gildedRose = new Shop([
-      new Item("Something Old", -5, 1)
+      new Item("Something Old", -5, 0)
     ]);
     const items = gildedRose.updateQuality();
     expect(items[0].sellIn).toBe(-6);
@@ -59,9 +61,14 @@ describe("Gilded Rose", () => {
     expect(items[0].quality).toBe(3);
   });
 
-  it("should not increment the quality of 'Aged Brie' beyond 50", () => {
-    const gildedRose = new Shop([new Item("Aged Brie", 5, 50)]);
+  it("should not increment the quality of 'Aged Brie' 'Backstage passes to a TAFKAL80ETC concert or beyond 50", () => {
+    const gildedRose = new Shop([
+      new Item("Aged Brie", 5, 50),
+      new Item("'Backstage passes to a TAFKAL80ETC concert", 5, 50)
+    ]);
     const items = gildedRose.updateQuality();
+    expect(items[0].sellIn).toBe(4);
+    expect(items[0].quality).toBe(50);
     expect(items[0].sellIn).toBe(4);
     expect(items[0].quality).toBe(50);
   });
