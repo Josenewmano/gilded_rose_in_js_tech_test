@@ -13,11 +13,7 @@ class Shop {
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       if (this.isReallySpecial(i) != true) { this.items[i].sellIn -= 1 }
-      
-      if (this.isNothingSpecial(i)) {
-        if (this.isTooOld(i)) { this.decreaseQuality(i) }
-        this.decreaseQuality(i); 
-      }
+      if (this.isNothingSpecial(i)) { this.decreaseQuality(i) }
       this.increaseBrie(i);
       this.changePass(i);    
     }
@@ -30,6 +26,7 @@ class Shop {
 
   decreaseQuality(index) {
     if (this.items[index].quality > 0) {this.items[index].quality -= 1}
+    if (this.items[index].quality > 0 && this.isTooOld(i)) {this.items[index].quality -= 1}
   }
 
   qualityToZero(index) {
@@ -51,7 +48,7 @@ class Shop {
   isNothingSpecial(index) {
     if (this.isBrie(index)) { return false }
     if (this.isReallySpecial(index)) { return false }
-    if (this.isPass(index)) {return false }
+    if (this.isPass(index)) { return false }
     return true
   }
 
@@ -60,19 +57,17 @@ class Shop {
   }
 
   increaseBrie(index) {
-    if (this.isBrie(index)) {
-      if (this.isTooOld(index)) {this.increaseQuality(index)}
-      this.increaseQuality(index);
-    }
+    if (this.isBrie(index) != true ) { return }
+    if (this.isTooOld(index)) {this.increaseQuality(index)}
+    this.increaseQuality(index);
   }
 
   changePass(index) {
-    if (this.isPass(index)) {
-      this.increaseQuality(index);
-      if (this.items[index].sellIn < 10) { this.increaseQuality(index) }
-      if (this.items[index].sellIn < 5) { this.increaseQuality(index) }
-      this.qualityToZero(index)
-    }
+    if (this.isPass(index) != true) { return }
+    this.increaseQuality(index);
+    if (this.items[index].sellIn < 10) { this.increaseQuality(index) }
+    if (this.items[index].sellIn < 5) { this.increaseQuality(index) }
+    this.qualityToZero(index)
   }
 
 }
