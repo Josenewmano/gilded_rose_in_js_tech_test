@@ -26,7 +26,7 @@ class Shop {
 
   decreaseQuality(index) {
     if (this.items[index].quality > 0) {this.items[index].quality -= 1}
-    if (this.items[index].quality > 0 && this.isTooOld(i)) {this.items[index].quality -= 1}
+    if (this.items[index].quality > 0 && this.isTooOld(index)) {this.items[index].quality -= 1}
   }
 
   qualityToZero(index) {
