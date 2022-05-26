@@ -14,6 +14,7 @@ class Shop {
     for (let i = 0; i < this.items.length; i++) {
       if (this.isReallySpecial(i) != true) { this.items[i].sellIn -= 1 }
       if (this.isNothingSpecial(i)) { this.decreaseQuality(i) }
+      if (this.isConjured(i)) { this.decreaseQuality(i) }
       this.increaseBrie(i);
       this.changePass(i);    
     }
@@ -43,6 +44,10 @@ class Shop {
 
   isReallySpecial(index) {
     if (this.items[index].name == 'Sulfuras, Hand of Ragnaros') {return true}
+  }
+
+  isConjured(index) {
+    if (this.items[index].name.startsWith('Conjured')) {return true}
   }
 
   isNothingSpecial(index) {

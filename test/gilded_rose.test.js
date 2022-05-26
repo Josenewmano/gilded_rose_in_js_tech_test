@@ -120,4 +120,16 @@ describe("Gilded Rose", () => {
     expect(items[0].sellIn).toBe(-1);
     expect(items[0].quality).toBe(0);
   });
+
+  it("should set decrement the quality of conjured items twice as fast", () => {
+    const gildedRose = new Shop([
+      new Item("Conjured something", 10, 10),
+      new Item("Conjured something old", 0, 10),
+    ]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].sellIn).toBe(9);
+    expect(items[0].quality).toBe(8);
+    expect(items[1].sellIn).toBe(-1);
+    expect(items[1].quality).toBe(6);
+  });
 });
